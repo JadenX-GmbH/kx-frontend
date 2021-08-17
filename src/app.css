@@ -1,0 +1,290 @@
+.text-center {
+  text-align: center;
+}
+
+.navbar-dark {
+  background: #020224 !important;
+}
+
+.navbar-dark .text-default,
+.navbar-dark .text-uppercase {
+  color: #f1f1f7 !important;
+}
+
+.card-profile-image img {
+  max-width: 130px;
+}
+
+.bg-gradient-green {
+  background: linear-gradient(87deg, #32c072 0, #32c072 100%) !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.app-info-section {
+  margin: 0px 0px 15px 0px;
+}
+
+tr.clickable:hover {
+  border: 1px solid #b4b4d4;
+  background-color: #f1f1f7;
+}
+
+.loader-container {
+  position: relative;
+}
+
+.loader-row {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: rgba(251, 251, 251, 0.5);
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.gig-price {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gig-price .price-card {
+  width: 48%;
+}
+
+.price-card .card-title {
+  color: #f1f1f7;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.app-default-card .card-title {
+  border-bottom: 1px solid #f1f1f7;
+  padding-bottom: 6px;
+}
+
+.gig-action-buttons {
+  display: flex;
+}
+
+.gigTopBackground {
+  height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.greenBackground {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(30, 130, 76, 0.9);
+}
+
+.gigDetailTitle {
+  position: absolute;
+  top: 55px;
+}
+
+.gigDetailTitle .display-3 {
+  color: #f1f1f7;
+  margin-left: 40px;
+}
+
+.gig-action-buttons .btn {
+  background: #3e3e52;
+  color: #ffffff;
+  border-color: #3e3e52;
+}
+
+.gig-action-button .btn {
+  background: #3e3e52;
+  color: #ffffff;
+  border-color: #3e3e52;
+}
+
+.execution-info {
+  font-size: 13px;
+}
+
+.input-section {
+  margin: 5px 0px;
+}
+
+.input-section .section-title {
+  font-size: 13px;
+  color: #d8d8e3;
+}
+
+.skillDropDownContainer {
+  position: relative;
+}
+
+.skillDropDown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #f7f7f7;
+  border-radius: 5px;
+  width: 100%;
+  z-index: 99;
+  background-color: #ffffff;
+}
+
+.skillDropDown div {
+  width: 100%;
+  color: #3e3e52;
+  font-size: 14px;
+  padding: 5px;
+  cursor: pointer;
+  margin: 2px 0px;
+  padding: 10px;
+}
+
+.skillDropDown .selected {
+  font-weight: bold;
+}
+
+.skillDropDown div:hover {
+  background-color: #f7f7f7;
+}
+
+.selectedSkillContainer {
+  display: flex;
+  margin-top: 10px;
+}
+
+.selectedSkillContainer .badge {
+  display: inline-block;
+  padding: 9px 26px 9px 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+  color: #fff;
+  line-height: 1;
+  background: #41b883;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  position: relative;
+  background: #32c072;
+  color: #ffffff;
+}
+
+.selectedSkillContainer .skill-remove-icon {
+  cursor: pointer;
+  margin-left: 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-weight: 700;
+  font-style: normal;
+  width: 22px;
+  text-align: center;
+  line-height: 37px;
+  transition: all 0.2s ease;
+  border-radius: 5px;
+  color: #3e3e52;
+}
+
+.skill-remove-icon i {
+  font-size: 17px;
+}
+
+.selectedSkillContainer .skill-remove-icon:hover {
+  background-color: green;
+  color: #fff;
+  font-weight: bold;
+}
+
+.navigate-all {
+  text-align: right;
+  margin: 20px 0px 5px 0px;
+}
+
+.navigate-all a {
+  font-size: 13px;
+}
+
+.ql-editor {
+  min-height: 200px;
+}
+
+.profile-info-unit {
+  font-size: 14px;
+  color: #9493ad;
+}
+
+.file-upload-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  border: 1px dashed lightblue;
+  cursor: pointer;
+}
+
+.summary-card {
+  margin: 5px 15px;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.summary-card .top-summary {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-summary .summary-title {
+  font-size: 13px;
+  color: #6c6b7f;
+}
+
+.top-summary .summary-title .count {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.summary-card .summary-percentage {
+  font-size: 12px;
+  color: #b4b4b4;
+}
+
+.summary-card .summary-percentage .upword {
+  color: #32c072;
+}
+
+.offer-summary {
+  border: 4px solid #fff;
+  padding: 3px 5px;
+  border-left-color: #37e083;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.offer-summary .time {
+  font-size: 11px;
+  font-weight: 600;
+  color: #b4b4b4;
+}
