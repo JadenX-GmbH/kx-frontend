@@ -29,25 +29,25 @@ export const generateGigs: (i: number) => GigType[] = (i: number) => {
     ]);
     let dataset = faker.datatype.uuid();
 
-    gigs.push({
-      id: id,
-      title: title,
-      description: description,
-      price: price,
-      status: status,
-      dataset: dataset,
-      offer: [
-        {
-          id: "offer-1",
-        },
-        {
-          id: "offer-2",
-        },
-      ],
-      sla: [],
-      dateCreated: "18/07/2021",
-      dateUpdated: null,
-    });
+    // gigs.push({
+    //   id: id,
+    //   title: title,
+    //   description: description,
+    //   price: price,
+    //   status: status,
+    //   dataset: dataset,
+    //   offer: [
+    //     {
+    //       id: "offer-1",
+    //     },
+    //     {
+    //       id: "offer-2",
+    //     },
+    //   ],
+    //   sla: [],
+    //   dateCreated: "18/07/2021",
+    //   dateUpdated: null,
+    // });
   }
 
   return gigs;
@@ -84,15 +84,15 @@ export const generateDataset: (i: number) => DataSet[] = (i: number) => {
 
     let description = faker.lorem.sentence();
 
-    data.push({
-      id: id,
-      title: faker.lorem.slug(),
-      description: description,
-      location: faker.name.jobArea(),
-      storage: faker.locale,
-      created: "18/07/2021",
-      lastUpdated: null,
-    });
+    // data.push({
+    //   id: id,
+    //   title: faker.lorem.slug(),
+    //   description: description,
+    //   location: faker.name.jobArea(),
+    //   storage: faker.locale,
+    //   created: "18/07/2021",
+    //   lastUpdated: null,
+    // });
   }
 
   return data;

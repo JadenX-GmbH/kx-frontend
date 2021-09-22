@@ -1,5 +1,5 @@
-import React, { useEffect, FC } from "react";
-import { useLocation, Route, Switch } from "react-router-dom";
+import React, { useEffect, FC, useState } from "react";
+import { useLocation, Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 
@@ -14,11 +14,13 @@ import routes from "../routes";
 import inner_routes from "../inner-page-routes";
 
 import { Auth } from "aws-amplify";
+import { useSelector } from "react-redux";
 
 import { setToken, setUser } from "../store/actions";
 import { USER_PROFILE } from "../util/api";
 import { useDispatch } from "react-redux";
-import { routeProp } from "../util/types";
+import { routeProp, UserType, Store } from "../util/types";
+import ProgressIndicator from "../components/Utility/ProgressIndicator/ProgressIndicator";
 
 type Props = {
   location: {
@@ -27,10 +29,12 @@ type Props = {
 };
 
 const Admin: FC<Props> = ({ location, children, ...props }) => {
+  const user = useSelector((state: Store) => state.user);
   const dispatch = useDispatch();
   let history = useHistory();
   const mainContent = React.useRef(null);
   const Location = useLocation();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const logUserOut = () => {
     Auth.signOut()
@@ -45,6 +49,7 @@ const Admin: FC<Props> = ({ location, children, ...props }) => {
 
   useEffect(() => {
     console.log("trying to authenticate");
+    setLoading(true);
     Auth.currentAuthenticatedUser()
       .then((user) => {
         console.log(user.pool);
@@ -67,14 +72,27 @@ const Admin: FC<Props> = ({ location, children, ...props }) => {
             })
             .then((response) => {
               console.log(response.data);
+              setLoading(false);
               dispatch(
                 setUser({
-                  name: `${response.data.details.surname} ${response.data.details.name}`,
+                  interId: response.data.id,
+                  id: response.data.uid,
                   userPhoto: response.data.userPhoto,
+                  description: response.data.description,
+                  firstName: response.data.details.name,
+                  lastName: response.data.details.surname,
+                  email: response.data.details.email,
+                  type: response.data.type as UserType,
+                  addresses: response.data.userAddresses,
+                  skills: response.data.userSkillsets,
+                  backgroundPhoto: response.data.backgroundPhoto,
+                  tagLine: response.data.tagLine,
+                  userGigs: response.data.userGigs,
                 })
               );
             })
             .catch((err) => {
+              setLoading(false);
               console.log(err);
               logUserOut();
             });
@@ -82,6 +100,7 @@ const Admin: FC<Props> = ({ location, children, ...props }) => {
       })
       .catch((e) => {
         console.log(e);
+        setLoading(false);
         logUserOut();
       });
   }, []);
@@ -98,7 +117,7 @@ const Admin: FC<Props> = ({ location, children, ...props }) => {
         return (
           <Route
             exact
-            path={prop.layout + prop.path}
+            path={prop.path}
             component={prop.component}
             key={key}
           />
@@ -111,20 +130,40 @@ const Admin: FC<Props> = ({ location, children, ...props }) => {
 
   const getBrandText = (path: string) => {
     for (let i = 0; i < routes.length; i++) {
-      if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
+      if (location.pathname.indexOf(routes[i].path) !== -1) {
         return routes[i].name;
       }
     }
     return "Brand";
   };
 
+  let filtered = routes.filter((item) => {
+    if (user && user.type === "RDO" && item.name === "Offers") {
+      return false;
+    }
+
+    if (user && user.type === "DS" && item.name === "Data Sets") {
+      return false;
+    }
+
+    return true;
+  });
+
+  let filteredInnerRoutes = inner_routes.filter((item) => {
+    if (user && user.type === "DS" && item.name === "DatasetNew") {
+      return false;
+    }
+
+    return true;
+  });
+
   return (
     <>
       <Sidebar
         {...props}
-        routes={routes}
+        routes={filtered}
         logo={{
-          innerLink: "/admin/index",
+          innerLink: "/home",
           imgSrc: require("../assets/img/brand/kx_3_normal.png").default,
           imgAlt: "...",
         }}
@@ -132,9 +171,12 @@ const Admin: FC<Props> = ({ location, children, ...props }) => {
       <div className="main-content" ref={mainContent}>
         <AdminNavbar {...props} brandText={getBrandText(location.pathname)} />
         <Switch>
-          {getRoutes(routes.concat(inner_routes))}
-          {/* <Redirect from="*" to="/admin/index" /> */}
+          {getRoutes(filtered.concat(filteredInnerRoutes))}
+          <Route path="*" >
+            <Redirect to="/home"/>
+          </Route>
         </Switch>
+        {/* {loading ? <ProgressIndicator message="Loading..." /> : null} */}
         <Container fluid>{/* <AdminFooter /> */}</Container>
       </div>
     </>

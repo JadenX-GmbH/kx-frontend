@@ -13,6 +13,7 @@
         position: absolute;
         left: 50%;
         transition: $transition-base;
+        object-fit: cover;
 
         &:hover {
             transform: translate(-50%, -33%);

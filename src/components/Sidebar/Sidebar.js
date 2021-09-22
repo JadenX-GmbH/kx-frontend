@@ -74,7 +74,7 @@ const Sidebar = (props) => {
       return (
         <NavItem key={key}>
           <NavLink
-            to={prop.layout + prop.path}
+            to={prop.path}
             tag={NavLinkRRD}
             onClick={closeCollapse}
             activeClassName="active"
@@ -118,7 +118,7 @@ const Sidebar = (props) => {
         </button>
         {/* Brand */}
         {logo ? (
-          <NavbarBrand className="pt-0" {...navbarBrandProps}>
+          <NavbarBrand {...navbarBrandProps}>
             <img
               alt={logo.imgAlt}
               className="navbar-brand-img"
@@ -161,19 +161,19 @@ const Sidebar = (props) => {
               <DropdownItem className="noti-title" header tag="div">
                 <h6 className="text-overflow m-0">Welcome!</h6>
               </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
+              <DropdownItem to="/user-profile" tag={Link}>
                 <i className="ni ni-single-02" />
                 <span>My profile</span>
               </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
+              <DropdownItem to="/user-profile" tag={Link}>
                 <i className="ni ni-settings-gear-65" />
                 <span>Settings</span>
               </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
+              <DropdownItem to="/user-profile" tag={Link}>
                 <i className="ni ni-calendar-grid-58" />
                 <span>Activity</span>
               </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
+              <DropdownItem to="/user-profile" tag={Link}>
                 <i className="ni ni-support-16" />
                 <span>Support</span>
               </DropdownItem>
@@ -236,9 +236,9 @@ const Sidebar = (props) => {
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}
-          <h6 className="navbar-heading text-muted">Documentation</h6>
+          {/* <h6 className="navbar-heading text-muted">Documentation</h6> */}
           {/* Navigation */}
-          <Nav className="mb-md-3" navbar>
+          {/* <Nav className="mb-md-3" navbar>
             <NavItem>
               <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
                 <i className="ni ni-spaceship" />
@@ -265,7 +265,7 @@ const Sidebar = (props) => {
                 Upgrade to PRO
               </NavLink>
             </NavItem>
-          </Nav>
+          </Nav> */}
         </Collapse>
       </Container>
     </Navbar>

@@ -27,13 +27,42 @@
   cursor: pointer;
 }
 
+.back-link {
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.back-link:hover {
+  color: #fff;
+}
+
+.btn.disabled:disabled {
+  cursor: not-allowed;
+}
+
+.btn.disabled:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .app-info-section {
   margin: 0px 0px 15px 0px;
+}
+
+tr.clickable {
+  border: 1px solid transparent;
 }
 
 tr.clickable:hover {
   border: 1px solid #b4b4d4;
   background-color: #f1f1f7;
+}
+
+tr.bg-green-light {
+  background-color: rgba(147, 231, 195, 0.2);
+  border-color: rgba(147, 231, 195, 0.2);
 }
 
 .loader-container {
@@ -108,7 +137,8 @@ tr.clickable:hover {
   border-color: #3e3e52;
 }
 
-.gig-action-button .btn {
+.gig-action-button .btn,
+.btn-dark {
   background: #3e3e52;
   color: #ffffff;
   border-color: #3e3e52;
@@ -116,6 +146,11 @@ tr.clickable:hover {
 
 .execution-info {
   font-size: 13px;
+}
+
+.execution-info a {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .input-section {
@@ -235,6 +270,7 @@ tr.clickable:hover {
   justify-content: center;
   align-items: center;
   min-height: 200px;
+  text-align: center;
   border: 1px dashed lightblue;
   cursor: pointer;
 }
@@ -283,8 +319,66 @@ tr.clickable:hover {
   margin-bottom: 15px;
 }
 
-.offer-summary .time {
+.offer-summary .description {
   font-size: 11px;
   font-weight: 600;
   color: #b4b4b4;
+}
+
+.offer-summary.yellow {
+  border-left-color: yellow;
+}
+
+.notification-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.progress-indicator {
+  max-height: 3px;
+  background-color: #b4b4d4;
+}
+
+.input-error {
+  border: 2px solid #f5365c;
+}
+
+.badges .badge {
+  margin-right: 0.4rem;
+}
+
+.add-remove-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.add-remove-block input {
+  margin-right: 1rem;
+}
+
+.add-remove-results {
+  padding: 0 0 0 1rem;
+  list-style: none;
+}
+
+.add-remove-results li {
+  margin-bottom: 1rem;
+}
+
+.add-remove-results .remove {
+  margin-left: 0.6rem;
+  color: #484561;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .navbar-vertical.navbar-expand-md .navbar-brand {
+    padding-top: 9px;
+  }
 }

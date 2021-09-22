@@ -33,6 +33,7 @@ import {
 const AdminNavbar = () => {
   const handleAmplify = () => {
     const localRedirect = "http://localhost:3000/";
+    const masterRedirect = "";
     const deploymentRedirect = "";
 
     const localUrl = `${localRedirect}`;
@@ -109,7 +110,7 @@ const AdminNavbar = () => {
               {/* <NavItem>
                 <NavLink
                   className="nav-link-icon"
-                  to="/admin/user-profile"
+                  to="/user-profile"
                   tag={Link}
                 >
                   <i className="ni ni-single-02" />

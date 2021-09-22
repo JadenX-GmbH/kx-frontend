@@ -47,10 +47,6 @@ const AdminNavbar: FC<Props> = ({ brandText, children, ...props }) => {
   let history = useHistory();
   const user = useSelector((state: Store) => state.user);
 
-  useEffect(() => {
-    console.log({ user });
-  });
-
   const handleAmplifyLogout = () => {
     Auth.signOut()
       .then((result) => {
@@ -60,8 +56,6 @@ const AdminNavbar: FC<Props> = ({ brandText, children, ...props }) => {
         console.log(e);
       });
   };
-
-  console.log(user);
 
   return (
     <>
@@ -73,19 +67,7 @@ const AdminNavbar: FC<Props> = ({ brandText, children, ...props }) => {
           >
             {props.brandText}
           </Link> */}
-          <Form className="navbar-search form-inline mr-3 d-none d-md-flex ml-lg-auto">
-            <FormGroup className="mb-0">
-              <InputGroup className="input-group-alternative">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>
-                    <i className="fas fa-search" />
-                  </InputGroupText>
-                </InputGroupAddon>
-                <Input placeholder="Search" type="text" />
-              </InputGroup>
-            </FormGroup>
-          </Form>
-          <Nav className="align-items-center d-none d-md-flex" navbar>
+          <Nav className="align-items-center d-none d-md-flex ml-auto" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
@@ -93,11 +75,8 @@ const AdminNavbar: FC<Props> = ({ brandText, children, ...props }) => {
                     <img
                       alt="..."
                       src={
-                        user
+                        user?.userPhoto
                           ? user.userPhoto
-                            ? user.userPhoto
-                            : require("../../assets/img/theme/team-4-800x800.jpg")
-                                .default
                           : require("../../assets/img/theme/team-4-800x800.jpg")
                               .default
                       }
@@ -105,7 +84,7 @@ const AdminNavbar: FC<Props> = ({ brandText, children, ...props }) => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm text-default font-weight-bold">
-                      {user ? user.name : ""}
+                      {user ? `${user.firstName} ${user.lastName}` : ""}
                     </span>
                   </Media>
                 </Media>
@@ -114,11 +93,11 @@ const AdminNavbar: FC<Props> = ({ brandText, children, ...props }) => {
                 <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Welcome!</h6>
                 </DropdownItem>
-                <DropdownItem to="/admin/profile/profileId" tag={Link}>
+                <DropdownItem to={`/profile/${user?.id}`} tag={Link}>
                   <i className="ni ni-single-02" />
                   <span>My profile</span>
                 </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
+                <DropdownItem to="/user-profile" tag={Link}>
                   <i className="ni ni-settings-gear-65" />
                   <span>Settings</span>
                 </DropdownItem>

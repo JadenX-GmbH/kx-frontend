@@ -14,58 +14,76 @@ import {
   Row,
 } from "reactstrap";
 
-import { generateExecutons } from "../../../mock-data/Mock";
+
 // core components
+
+import axios from "axios";
 
 import ExecutionRow from "./ExecutionRow";
 import TableLoader from "../../Utility/Loader/TableLoader";
 import { useHistory } from "react-router-dom";
-import { Execution } from "../../../util/types";
+import { useSelector } from "react-redux";
+import { Execution, Exploration } from "../../../util/types";
+
+import { Store, PaginationType } from "../../../util/types";
+import { EXECUTION_JOBS, EXPLORATION_JOBS } from "../../../util/api";
 
 const GigTable = () => {
   let history = useHistory();
-  const [offers, setOffers] = useState<Execution[]>([]);
+  const token = useSelector((state: Store) => state.token);
+  const user = useSelector((state: Store) => state.user);
+  // const [offers, setOffers] = useState<Execution[]>([]);
+  const [executionJobs, setExecutionJobs] = useState<Execution[]>([]);
+  const [explorationJobs, setExplorationJobs] = useState<Exploration[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  // const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const fetchPage = (pageNum: number) => {
-    setCurrentPage(pageNum);
-  };
+  // const fetchPage = (pageNum: number) => {
+  //   setCurrentPage(pageNum);
+  // };
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setOffers(generateExecutons(8));
-    }, 400);
-  }, [currentPage]);
+    if (token.length) {
+      setLoading(true);
+
+      try {
+        axios
+        .get(`${EXECUTION_JOBS}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log("execution jobs", response.data);
+          setExecutionJobs(response.data);
+        })
+
+        axios
+        .get(`${EXPLORATION_JOBS}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log("expolation jobs", response.data);
+          setExplorationJobs(response.data);
+        })
+      } catch(err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }, [token]);
 
   return (
     <Row>
       <div className="col">
-        <Card className="shadow">
+        <Card className="shadow mb-5">
           <CardHeader className="border-0">
             <Row className="align-items-center">
               <Col xs="8">
-                <h3 className="mb-0">Your Execution and Exploration jobs</h3>
-              </Col>
-              <Col className="text-right" xs="4">
-                <Button
-                  color="primary"
-                  onClick={() => history.push(`/admin/executions/new`)}
-                  size="sm"
-                >
-                  Start Execution
-                </Button>
-                <Button
-                  color="primary"
-                  onClick={() =>
-                    history.push(`/admin/executions/explorations/new`)
-                  }
-                  size="sm"
-                >
-                  Add Exploration
-                </Button>
+                <h3 className="mb-0">Your Execution jobs</h3>
               </Col>
             </Row>
           </CardHeader>
@@ -98,12 +116,12 @@ const GigTable = () => {
             </thead>
             <tbody className="loader-container">
               {loading ? <TableLoader colspan={"6"} /> : null}
-              {offers.map((offer: Execution, index: number) => {
-                return <ExecutionRow key={index} data={offer} />;
-              })}
+              {executionJobs.length > 0 ? executionJobs.map((executionJob: Execution, index: number) => {
+                return <ExecutionRow key={index} data={executionJob} isExecution={true} />;
+              }): null}
             </tbody>
           </Table>
-          <CardFooter className="py-4">
+          {/* <CardFooter className="py-4">
             <nav aria-label="...">
               <Pagination
                 className="pagination justify-content-end mb-0"
@@ -163,7 +181,41 @@ const GigTable = () => {
                 </PaginationItem>
               </Pagination>
             </nav>
-          </CardFooter>
+          </CardFooter> */}
+        </Card>
+        <Card className="shadow">
+          <CardHeader className="border-0">
+            <Row className="align-items-center">
+              <Col xs="8">
+                <h3 className="mb-0">Your Exploration jobs</h3>
+              </Col>
+            </Row>
+          </CardHeader>
+
+          <Table className="align-items-center table-flush" responsive>
+            <thead className="thead-light">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Description</th>
+                <th scope="col" className="text-center">
+                  Created
+                </th>
+
+                <th scope="col" className="text-center">
+                  Updated
+                </th>
+                <th scope="col" className="text-center">
+                  Gig
+                </th>
+              </tr>
+            </thead>
+            <tbody className="loader-container">
+              {loading ? <TableLoader colspan={"6"} /> : null}
+              {explorationJobs.length > 0 ? explorationJobs.map((explorationJob: Exploration, index: number) => {
+                return <ExecutionRow key={index} data={explorationJob} isExecution={false} />;
+              }): null}
+            </tbody>
+          </Table>
         </Card>
       </div>
     </Row>

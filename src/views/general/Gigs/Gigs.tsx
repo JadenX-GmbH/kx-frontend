@@ -18,13 +18,13 @@ const Gigs = () => {
           </Col>
 
           <Col xs="12" sm="12" md="12" lg="4" className="flex-column">
-            <div className="full-width app-info-section">
+            {/* <div className="full-width app-info-section">
               <DefaultCard title="Latest Offers">
                 <p className="navigate-all">
-                  <Link to="/admin/gigs/offers">All Offers</Link>
+                  <Link to="/gigs/offers">All Offers</Link>
                 </p>
               </DefaultCard>
-            </div>
+            </div> */}
 
             <div className="full-width app-info-section">
               <DefaultCard title="Execution and explorations">

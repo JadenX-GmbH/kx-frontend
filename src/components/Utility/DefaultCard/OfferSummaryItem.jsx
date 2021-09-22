@@ -1,11 +1,11 @@
 import React from "react";
 
-const OfferSummaryCard = ({ text, time }) => {
+const OfferSummaryCard = ({ accepted, text, description }) => {
   return (
-    <div className="offer-summary">
+    <div className={`offer-summary ${accepted ? '' : 'yellow'}`}>
       {text}
       <br />
-      <span className="time">{time}</span>
+      <span className="description">{description}</span>
     </div>
   );
 };

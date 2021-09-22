@@ -1,3 +1,24 @@
-let base = `https://10ioxsf1ei.execute-api.eu-central-1.amazonaws.com/testing`;
+export const base = `url`;//<API_gateway URL>;
 
 export const USER_PROFILE = `${base}/user/users/profile`;
+export const USER_DETAIL = `${base}/user/users/`;
+export const RDO_GIGS = `${base}/gig/dataOwners/gigs`;
+export const DS_GIGS = `${base}/gig/candidateSpecialists/gigs`;
+export const DETAIL_GIGS = `${base}/gig/gigs/`;
+export const EXPLORATION = `${base}/execution/gigs/`;
+export const EXPLORATION_JOBS = `${base}/execution/explorationJobs/`;
+export const EXPLORATION_RESULTS = `${base}/execution/explorationResults/`;
+export const EXECUTION_JOBS = `${base}/execution/executionJobs/`;
+export const EXECUTION_RESULTS = `${base}/execution/executionResults/`;
+export const PROGRAMS = `${base}/execution/programs/`;
+export const CREATE_GIG = `${base}/gig/gigs/`;
+export const SKILLS = `${base}/user/skills/`;
+export const CATEGORIES = `${base}/user/categorys/`;
+export const SKILLSETS = `${base}/user/skillsets/`;
+export const OFFERS = `${base}/gig/offers/`;
+export const USER_OFFERS = `${base}/gig/users/offers`;
+export const DATASETS = `${base}/execution/datasets/`;
+export const DATASETS_OWNER = `${base}/execution/datasets/dataOwner`;
+export const DATASETS_USER = `${base}/execution/users/datasets`;
+export const EXECUTION_STATUS = `${base}/blockchain-middleware/iexec/deal/`;
+export const ORDERS = `${base}/execution/orders`;

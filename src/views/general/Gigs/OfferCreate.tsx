@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Row,
@@ -12,6 +12,12 @@ import {
   Input,
 } from "reactstrap";
 
+import { useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import axios from "axios";
+
+import { OFFERS } from "../../../util/api";
+import { Store } from "../../../util/types";
 import InputSection from "../../../components/Utility/Form/InputSection";
 import Background from "./pexels-christina-morillo-1181675.jpeg";
 import ReactQuill from "react-quill";
@@ -20,8 +26,67 @@ import "react-quill/dist/quill.snow.css";
 // core components
 
 const OfferCreate = () => {
+  let history = useHistory();
+  const token = useSelector((state: Store) => state.token);
+  const user = useSelector((state: Store) => state.user);
+  let { gigId } = useParams<{ gigId: string }>();
   const [price, setPrice] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [errors, setErrors] = useState<{
+    price: boolean;
+    description: boolean;
+  }>({
+    price: false,
+    description: false,
+  });
+
+  const onSubmitHandler = (event: any) => {
+    event.preventDefault();
+
+    let errorFree = true;
+
+    if (price.length === 0) {
+      setErrors((values) => {
+        return { ...values, price: true };
+      });
+      errorFree = false;
+    }
+
+    if (description.length === 0) {
+      setErrors((values) => {
+        return { ...values, description: true };
+      });
+      errorFree = false;
+    }
+
+    if (errorFree && user) {
+      const offer = {
+        price,
+        priceToken: 0.0,
+        description,
+        gig: gigId,
+        specialist: user.id,
+      };
+
+      if (token.length) {
+        axios
+          .post(OFFERS, offer, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log("gig create response", response.data);
+            if (!isNaN(response.data)) {
+              history.push(`/gigs/${gigId}/offers/${response.data}`);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
+  };
 
   return (
     <>
@@ -40,7 +105,9 @@ const OfferCreate = () => {
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="12" md="12">
-              <h1 className="display-3 text-white">New Offer for Gig #12343</h1>
+              <h1 className="display-3 text-white">
+                New Offer for Gig #{gigId}
+              </h1>
             </Col>
           </Row>
         </Container>
@@ -59,7 +126,7 @@ const OfferCreate = () => {
                     <Col className="text-right gig-action-button" xs="4">
                       <Button
                         className="btn btn-success btn-sm"
-                        onClick={(e) => e.preventDefault()}
+                        onClick={onSubmitHandler}
                       >
                         Offer
                       </Button>
@@ -75,8 +142,14 @@ const OfferCreate = () => {
                           <Label>Price</Label>
                           <Input
                             type="text"
+                            className={errors.price ? "input-error" : ""}
                             value={price}
-                            onChange={(e) => setPrice(e.target.value)}
+                            onChange={(e) => {
+                              setPrice(e.target.value);
+                              setErrors((values) => {
+                                return { ...values, price: false };
+                              });
+                            }}
                             placeholder="27930 &euro;"
                           />
                         </FormGroup>
@@ -97,8 +170,14 @@ const OfferCreate = () => {
                             placeholder="Here goes your description"
                           /> */}
                           <ReactQuill
+                            className={errors.description ? "input-error" : ""}
                             value={description}
-                            onChange={(value) => setDescription(value)}
+                            onChange={(value) => {
+                              setDescription(value);
+                              setErrors((values) => {
+                                return { ...values, description: false };
+                              });
+                            }}
                           />
                         </FormGroup>
                       </Col>

@@ -4,13 +4,15 @@ import { Card, CardTitle, CardText, CardBody } from "reactstrap";
 const DefaultCard = (props) => {
   return (
     <Card body className="app-default-card" {...props}>
-      <CardTitle>
+      <CardTitle style={props.shortVersion ? {marginBottom: '.8rem'} : {}}>
         {props.title}
-        {props.headerButtons ? (
-          <span style={{ float: "right" }}>{props.headerButtons}</span>
+        {props.headerbuttons ? (
+          <span style={{ float: "right" }}>{props.headerbuttons}</span>
         ) : null}
       </CardTitle>
-      <CardBody>{props.children}</CardBody>
+      <CardBody style={props.shortVersion ? { padding: "0" } : { padding: "10px 0px 10px 0px" }}>
+        {props.children}
+      </CardBody>
     </Card>
   );
 };

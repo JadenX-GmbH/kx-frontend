@@ -3,29 +3,27 @@ import react from "react";
 import { useHistory } from "react-router-dom";
 import { GigType } from "../../../util/types";
 
-const { default: TruncateText } = require("../../../util/Truncate");
+// const { default: TruncateText } = require("../../../util/Truncate");
 
-const GigRow = ({ gig }: { gig: GigType }) => {
+const GigRow = ({ gig, accepted }: { gig: GigType, accepted: boolean }) => {
   // console.log(gig);
   let history = useHistory();
+  console.log('accepted', accepted);
 
-  const goTo = (id: string) => {
-    history.push(`/admin/gigs/${id}`);
+  const goTo = (id: number) => {
+    history.push(`/gigs/${id}`);
   };
 
   return (
-    <tr className="clickable" onClick={() => goTo(gig.id)}>
-      <th scope="row">
-        <TruncateText text={gig.id} length={12} />
-      </th>
+    <tr className={`clickable ${accepted ? 'bg-green-light' : ''}`} onClick={() => goTo(gig.id)}>
+      <th scope="row">{gig.id}</th>
       <td>{gig.title}</td>
 
-      <td>{gig.price} Euro</td>
-      <td className="text-center">{gig.offer.length}</td>
-      <td className="text-center">{gig.sla.length}</td>
-      <td>
-        <TruncateText text={gig.status} length={12} />
-      </td>
+      <td>{gig.price ? gig.price : 0} Euro</td>
+      <td>{gig.maxPrice} Euro</td>
+      <td className="text-center">0</td>
+      <td className="text-center">0</td>
+      <td>{gig.status}</td>
     </tr>
   );
 };

@@ -1,6 +1,6 @@
 {
   "authSelections": "userPoolOnly",
-  "resourceName": "",
+  "resourceName": "resource-name",
   "serviceType": "imported",
   "region": "eu-central-1"
 }

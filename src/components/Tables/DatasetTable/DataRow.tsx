@@ -1,31 +1,26 @@
 import react from "react";
 
-import { useHistory } from "react-router-dom";
 import { DataSet } from "../../../util/types";
 const { default: TruncateText } = require("../../../util/Truncate");
 
 const OfferRow = ({ data }: { data: DataSet }) => {
-  let history = useHistory();
-
-  const goTo = (id: string) => {
-    // history.push(`/admin/gigs/gig-12/offers/${id}`);
+  const goTo = () => {
+    if (data.storageType === "IPFS") window.open(data.location, "_blank", "noopener,noreferrer");
   };
 
   return (
-    <tr className="clickable" onClick={() => goTo(data.id)}>
+    <tr className="clickable" onClick={() => goTo()}>
       <th scope="row">
-        <TruncateText text={data.id} length={12} />
+        {data.id}
       </th>
 
       <td>{data.title}</td>
 
       <td>
-        <TruncateText text={data.description} length={12} />
+        <TruncateText text={data.description} length={30} />
       </td>
-      <td>{data.location}</td>
-      <td>{data.storage}</td>
-      <td className="text-center">{data.created}</td>
-      <td className="text-center">--</td>
+      {/* <td>{data.location}</td> */}
+      <td className="text-center">{data.storageType}</td>
     </tr>
   );
 };
